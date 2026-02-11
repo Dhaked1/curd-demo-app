@@ -1,0 +1,65 @@
+@model CurdDemoApp.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2 class="text-center mb-4">Edit Product</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <form asp-action="Edit" enctype="multipart/form-data" class="card shadow p-4">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- NAME -->
+            <div class="form-floating mb-3">
+                <input asp-for="Name" class="form-control" placeholder="Name" />
+                <label asp-for="Name"></label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- PRICE -->
+            <div class="form-floating mb-3">
+                <input asp-for="Price" class="form-control" placeholder="Price" />
+                <label asp-for="Price"></label>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <!-- CURRENT IMAGE -->
+            @if (Model.ImagePath != null)
+            {
+                <div class="mb-3 text-center">
+                    <img src="~/images/@Model.ImagePath" width="120" class="rounded shadow" />
+                </div>
+            }
+
+            <!-- NEW IMAGE -->
+            <div class="mb-3">
+                <label class="form-label">Change Image</label>
+                <input type="file" name="ImageFile" class="form-control" />
+            </div>
+
+            <!-- BUTTON -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-warning px-4">Update</button>
+            </div>
+
+        </form>
+
+        <!-- BACK BUTTON -->
+        <div class="text-center mt-3">
+            <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

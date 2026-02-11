@@ -1,0 +1,68 @@
+@model IEnumerable<CurdDemoApp.Models.Product>
+
+<h2 class="text-center fw-bold mb-4">Products</h2>
+
+<div class="text-center mb-3">
+    <a asp-action="Create" class="btn btn-success">Add Product</a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <div class="accordion accordion-flush" id="productAccordion">
+
+            @foreach (var item in Model)
+            {
+                var collapseId = "collapse" + item.Id;
+
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#@collapseId">
+
+                            @item.Name — @item.Price
+
+                        </button>
+                    </h2>
+
+                    <div id="@collapseId"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#productAccordion">
+
+                        <div class="accordion-body">
+
+                            @* IMAGE *@
+                            @if (!string.IsNullOrEmpty(item.ImagePath))
+                            {
+                                <img src="~/images/@item.ImagePath"
+                                     width="120"
+                                     class="mb-3 rounded shadow" />
+                            }
+
+                            <p><strong>Name:</strong> @item.Name</p>
+                            <p><strong>Price:</strong> @item.Price</p>
+
+                            <div class="mt-2">
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-warning">Edit</a>
+
+                                <a asp-action="Details" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-info">Details</a>
+
+                                <a asp-action="Delete" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-danger">Delete</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
